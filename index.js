@@ -9,16 +9,6 @@ const bot = new Discord.Client({disableEveryone: true});
 bot.commands = new Discord.Collection();
 let cooldown = new Set();
 let cdSeconds = 5;
-/*bot.music = require("discord.js-musicbot-addon");
-
-bot.music.start(bot, {
-  botPrefix : ".",
-  youtubeKey: "AIzaSyDxa8nHi6_ucyJlAAwzCTE25YIT1IAi4L8",
-  help: {
-    help: "Komutlar için muzik.",
-    name: "muzik"
-  }
-});*/
 
 require('./util/eventLoader')(bot);
 
@@ -158,4 +148,4 @@ bot.on("message", async message =>{
 
 });
 
-bot.login(token.token);
+bot.login(process.env.TOKEN);
