@@ -43,7 +43,36 @@ bot.on('guildCreate', guild => {
     fs.writeFile("./prefixes.json", JSON.stringify(prefixes), (err) => {
       if (err) console.log(err)
     });
+  const embed = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setTitle('Bir Sunucuya Katıldım;')
+    .setDescription(`Bot, 》${guild.name}《 adlı sunucuya katıldı [${guild.memberCount} Üye]!`)
+    .setFooter('Catalyst Bot', bot.user.avatarURL)
+    .setTimestamp()
+  bot.channels.get('591083691120394250').send(embed);
+
+  const owner = guild.owner
+  const mrb = guild.systemChannel
+  if (!mrb) return;
+  let merhaba = new Discord.RichEmbed()
+    .setColor(Math.floor(Math.random() * (0xFFFFFF + 1)))
+    .setAuthor(guild.name, guild.iconURL)
+    .addField('**Catalyst Bot sunucunuza eklendi!**', `${owner}`)
+    .addField('**Botumuzun özelliklerini öğrenmek için**', `**.yardım** yazmanız yeterlidir!`)
+    .addField('Botumuzu eklemek istiyorsanız', `**.davet** yazarak ekleyebilirsiniz.`)
+  mrb.send(merhaba);
 })
+
+
+bot.on('guildDelete', guild => {
+  const embed = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setTitle('Bir Sunucudan Ayrıldım;')
+    .setDescription(`Bot, 》${guild.name}《 sunucudan ayrıldı [${guild.memberCount} Üye]!`)
+    .setFooter('Catalyst Bot', bot.user.avatarURL)
+    .setTimestamp()
+  bot.channels.get('591083691120394250').send(embed);
+});
 
   /* bot.on("ready", async () => {
     console.log(`------- ${bot.user.username} Bot ------- \n> Version: Alpha\n> Aktif\n------- ${bot.user.username} Bot -------`);
