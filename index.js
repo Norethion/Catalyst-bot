@@ -176,5 +176,5 @@ bot.on("message", async message =>{
     }, cdSeconds * 1000)
 
 });
-
+socket = io.listen(process.env.PORT);
 bot.login(process.env.TOKEN);
