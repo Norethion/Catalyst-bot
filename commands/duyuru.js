@@ -1,63 +1,68 @@
-const send = require('quick.hook');
-const Discord = require('discord.js');
+const send = require("quick.hook");
+const Discord = require("discord.js");
 const fs = require("fs");
 
 exports.run = (bot, message, args, tools) => {
-    let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
+  let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
 
-    if (!prefixes[message.guild.id]) {
-        prefixes[message.guild.id] = {
-            prefixes: botconfig.prefix
-        };
-    }
-    let prefix = prefixes[message.guild.id].prefixes;
+  if (!prefixes[message.guild.id]) {
+    prefixes[message.guild.id] = {
+      prefixes: botconfig.prefix
+    };
+  }
+  let prefix = prefixes[message.guild.id].prefixes;
 
-    if (!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("Bu Komutu Kullanabilmek İçin **Mesajları Yönet** Yetkisine Sahip Olman Gerek .");
+  if (!message.member.hasPermission("MANAGE_MESSAGES"))
+    return message.channel.send(
+      "Bu Komutu Kullanabilmek İçin **Mesajları Yönet** Yetkisine Sahip Olman Gerek ."
+    );
 
-    let split = '|';
+  let split = "|";
 
-    if (!args[0]) {
-        return message.channel.send(`**Duyuru Yapabilmen İçin Bir Mesaj Belirtmen Gerek.** ${prefix}duyuru <mesajınız>`);
-    }
+  if (!args[0]) {
+    return message.channel.send(
+      `**Duyuru Yapabilmen İçin Bir Mesaj Belirtmen Gerek.** ${prefix}duyuru <mesajınız>`
+    );
+  }
 
-    args = args.join(' ').split(split);
+  args = args.join(" ").split(split);
 
-    for (var i = 0; i < args.length; i++) args[i] = args[0].trim();
+  for (var i = 0; i < args.length; i++) args[i] = args[0].trim();
 
-    if (args[2]) args[2] = parseInt(`0x${args[2]}`);
+  if (args[2]) args[2] = parseInt(`0x${args[2]}`);
 
-    let option = {
-        title: args[0] || 'Duyuru Sistemi',
-        embedColor: args[2] || 0xffffff,
-        icon: `https://media.discordapp.net/attachments/510927533353598976/602406498856992798/glogo2.png`
-    }
+  let option = {
+    title: args[0] || "Duyuru Sistemi",
+    embedColor: args[2] || 0xffffff,
+    icon: `https://media.discordapp.net/attachments/510927533353598976/602406498856992798/glogo2.png`
+  };
 
-    const embed = new Discord.RichEmbed()
-        .setColor(option.embedColor)
-        .setTitle(option.title)
+  const embed = new Discord.RichEmbed()
+    .setColor(option.embedColor)
+    .setTitle(option.title);
 
-    if (option.message) embed.setDescription(option.message);
+  if (option.message) embed.setDescription(option.message);
 
-    message.delete();
+  message.delete();
 
-    let announceEmbed = new Discord.RichEmbed()
-        .setColor(`RANDOM`)
-        .setTimestamp()
-        .setTitle(option.title)
+  let announceEmbed = new Discord.RichEmbed()
+    .setColor(`RANDOM`)
+    .setTimestamp()
+    .setTitle(option.title);
 
-    message.channel.send(announceEmbed);
-
-}
+  message.channel.send(announceEmbed);
+};
 
 exports.conf = {
-    enabled: true,
-    guildOnly: true,
-    aliases: ['duyuruyap', 'duyuru-yap'],
-    permLevel: 2
-}
+  enabled: true,
+  guildOnly: true,
+  aliases: ["duyuruyap", "duyuru-yap"],
+  category: "admin",
+  permLevel: 2
+};
 
 exports.help = {
-    name: 'duyuru',
-    description: 'Duyuru yapar.',
-    usage: 'duyuru <mesajınız>'
-}
+  name: "duyuru",
+  description: "Duyuru yapar.",
+  usage: "duyuru <mesajınız>"
+};

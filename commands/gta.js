@@ -9,20 +9,17 @@ module.exports.run = async (bot, message, args) => {
 
   Jimp.read(user.avatarURL, (err, image) => {
     image.resize(295, 295);
-    image.greyscale();
     image.gaussian(1);
     Jimp.read(
-      "https://media.discordapp.net/attachments/552249354002628619/554073124279156748/prison_PNG29.png?width=300&height=300",
+      "https://cdn.discordapp.com/attachments/444475700871823361/517295012384604181/gta_efekt.png",
       (err, avatar) => {
         avatar.resize(295, 295);
         image
-          .composite(avatar, 0, 0)
-          .write(`./img/hapishane/${bot.user.id}-${user.id}.png`);
+          .composite(avatar, 4, 0)
+          .write(`./img/gta/${bot.user.id}-${user.id}.png`);
         setTimeout(function() {
           message.channel.send(
-            new Discord.Attachment(
-              `./img/hapishane/${bot.user.id}-${user.id}.png`
-            )
+            new Discord.Attachment(`./img/gta/${bot.user.id}-${user.id}.png`)
           );
         }, 1000);
         message.channel.stopTyping();
@@ -34,13 +31,13 @@ module.exports.run = async (bot, message, args) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ["gta5"],
   category: "photo",
   permLevel: 0
 };
 
 exports.help = {
-  name: "hapishane",
-  description: "Profil resmine hapishane efekti uygular.",
-  usage: "hapishane <@kullanıcı>"
+  name: "gta",
+  description: "Profil fotoğrafınıza GTAV efekti uygular.",
+  usage: "gta"
 };

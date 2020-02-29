@@ -1,37 +1,36 @@
-const Discord = require('discord.js');
-const { Command } = require('discord.js-commando');
-const { stripIndents } = require('common-tags');
-const slots = ['🍇', '🍊', '🍐', '🍒', '🍋'];
+const Discord = require("discord.js");
+const { Command } = require("discord.js-commando");
+const { stripIndents } = require("common-tags");
+const slots = ["🍇", "🍊", "🍐", "🍒", "🍋"];
 
-exports.run = function (client, message) {
+exports.run = function(client, message) {
+  var slot1 = slots[Math.floor(Math.random() * slots.length)];
+  var slot2 = slots[Math.floor(Math.random() * slots.length)];
+  var slot3 = slots[Math.floor(Math.random() * slots.length)];
 
-    var slot1 = slots[Math.floor(Math.random() * slots.length)];
-    var slot2 = slots[Math.floor(Math.random() * slots.length)];
-    var slot3 = slots[Math.floor(Math.random() * slots.length)];
-
-    if (slot1 === slot2 && slot1 === slot3) {
-        message.channel.send(stripIndents`
+  if (slot1 === slot2 && slot1 === slot3) {
+    message.channel.send(stripIndents`
 		${slot1} : ${slot2} : ${slot3}
 		Tebrikler, kazandınız!
 		`);
-    } else {
-        message.channel.send(stripIndents`
+  } else {
+    message.channel.send(stripIndents`
 		${slot1} : ${slot2} : ${slot3}
 		Eyvah, kaybettin!
 		`);
-    }
-
+  }
 };
 
 exports.conf = {
-    enabled: true,
-    guildOnly: false,
-    aliases: ['slot', 'slotçevir', 'slotoyna'],
-    permLevel: 0
+  enabled: true,
+  guildOnly: false,
+  aliases: ["slot", "slotçevir", "slotoyna"],
+  ategory: "fun",
+  permLevel: 0
 };
 
 exports.help = {
-    name: 'slots',
-    description: 'Slots oyunu oynatır.',
-    usage: 'slots'
+  name: "slots",
+  description: "Slots oyunu oynatır.",
+  usage: "slots"
 };
