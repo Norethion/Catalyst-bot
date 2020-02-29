@@ -1,24 +1,39 @@
 const token = require("./token.json");
-const ayarlar = require("./ayarlar.json")
+const ayarlar = require("./ayarlar.json");
 const Discord = require("discord.js");
 const fs = require("fs");
-const moment = require('moment');
-const ownerID = '286158318450245632';
+const chalk = require("chalk");
+const moment = require("moment");
+const ownerID = "286158318450245632";
 const active = new Map();
-const bot = new Discord.Client({disableEveryone: true});
+const TOKEN = process.env.TOKEN;
+const express = require("express");
+const app = express();
+const http = require("http");
+app.get("/", (request, response) => {
+  console.log(
+    ` az önce pinglenmedi. Sonra ponglanmadı... ya da başka bir şeyler olmadı.`
+  );
+  response.sendStatus(200);
+});
+app.listen(process.env.PORT);
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
+const bot = new Discord.Client({ disableEveryone: true });
 bot.commands = new Discord.Collection();
 let cooldown = new Set();
 let cdSeconds = 5;
 
-require('./util/eventLoader')(bot);
+require("./util/eventLoader")(bot);
 
 const log = message => {
-  console.log(`[${moment().format('DD-MM-YYYY HH:mm:ss')}] ${message}`);
+  console.log(`[${moment().format("DD-MM-YYYY HH:mm:ss")}] ${message}`);
 };
 
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
-fs.readdir('./commands/', (err, files) => {
+fs.readdir("./commands/", (err, files) => {
   if (err) console.error(err);
   log(`${files.length} komut yüklenecek.`);
   files.forEach(f => {
@@ -33,48 +48,57 @@ fs.readdir('./commands/', (err, files) => {
 
 //let statuses = ['.yardım']
 
-bot.on('guildCreate', guild => {
-    let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
+bot.on("guildCreate", guild => {
+  let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
 
-    prefixes[guild.id] = {
-      prefixes: "."
-    };
+  prefixes[guild.id] = {
+    prefixes: "."
+  };
 
-    fs.writeFile("./prefixes.json", JSON.stringify(prefixes), (err) => {
-      if (err) console.log(err)
-    });
+  fs.writeFile("./prefixes.json", JSON.stringify(prefixes), err => {
+    if (err) console.log(err);
+  });
   const embed = new Discord.RichEmbed()
-    .setColor('RANDOM')
-    .setTitle('Bir Sunucuya Katıldım;')
-    .setDescription(`Bot, 》${guild.name}《 adlı sunucuya katıldı [${guild.memberCount} Üye]!`)
-    .setFooter('Catalyst Bot', bot.user.avatarURL)
-    .setTimestamp()
-  bot.channels.get('591083691120394250').send(embed);
+    .setColor("RANDOM")
+    .setTitle("Bir Sunucuya Katıldım;")
+    .setDescription(
+      `Bot, 》${guild.name}《 adlı sunucuya katıldı [${guild.memberCount} Üye]!`
+    )
+    .setFooter("Catalyst Bot", bot.user.avatarURL)
+    .setTimestamp();
+  bot.channels.get("591083691120394250").send(embed);
 
-  const owner = guild.owner
-  const mrb = guild.systemChannel
+  const owner = guild.owner;
+  const mrb = guild.systemChannel;
   if (!mrb) return;
   let merhaba = new Discord.RichEmbed()
-    .setColor(Math.floor(Math.random() * (0xFFFFFF + 1)))
+    .setColor(Math.floor(Math.random() * (0xffffff + 1)))
     .setAuthor(guild.name, guild.iconURL)
-    .addField('**Catalyst Bot sunucunuza eklendi!**', `${owner}`)
-    .addField('**Botumuzun özelliklerini öğrenmek için**', `**.yardım** yazmanız yeterlidir!`)
-    .addField('Botumuzu eklemek istiyorsanız', `**.davet** yazarak ekleyebilirsiniz.`)
+    .addField("**Catalyst Bot sunucunuza eklendi!**", `${owner}`)
+    .addField(
+      "**Botumuzun özelliklerini öğrenmek için**",
+      `**.yardım** yazmanız yeterlidir!`
+    )
+    .addField(
+      "Botumuzu eklemek istiyorsanız",
+      `**.davet** yazarak ekleyebilirsiniz.`
+    );
   mrb.send(merhaba);
-})
-
-
-bot.on('guildDelete', guild => {
-  const embed = new Discord.RichEmbed()
-    .setColor('RANDOM')
-    .setTitle('Bir Sunucudan Ayrıldım;')
-    .setDescription(`Bot, 》${guild.name}《 sunucudan ayrıldı [${guild.memberCount} Üye]!`)
-    .setFooter('Catalyst Bot', bot.user.avatarURL)
-    .setTimestamp()
-  bot.channels.get('591083691120394250').send(embed);
 });
 
-  /* bot.on("ready", async () => {
+bot.on("guildDelete", guild => {
+  const embed = new Discord.RichEmbed()
+    .setColor("RANDOM")
+    .setTitle("Bir Sunucudan Ayrıldım;")
+    .setDescription(
+      `Bot, 》${guild.name}《 sunucudan ayrıldı [${guild.memberCount} Üye]!`
+    )
+    .setFooter("Catalyst Bot", bot.user.avatarURL)
+    .setTimestamp();
+  bot.channels.get("591083691120394250").send(embed);
+});
+
+/* bot.on("ready", async () => {
     console.log(`------- ${bot.user.username} Bot ------- \n> Version: Alpha\n> Aktif\n------- ${bot.user.username} Bot -------`);
       bot.user.setActivity("Kodunun Yapılışını",{type:"watching"})
         setInterval(function() {
@@ -139,19 +163,18 @@ bot.elevation = message => {
     return;
   }
   let permlvl = 0;
-  if (message.member.hasPermission("BAN_MEMBERS")) permlvl = 2;
-  if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
-  if (message.author.id === ayarlar.sahip) permlvl = 4;
+  if (message.member.hasPermission("MANAGE_MESSAGES")) permlvl = 1;
+  if (message.member.hasPermission("KICK_MEMBERS")) permlvl = 2;
+  if (message.member.hasPermission("BAN_MEMBERS")) permlvl = 3;
+  if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 4;
+  if (message.author.id === ayarlar.sahip) permlvl = 5;
   return permlvl;
-}
+};
 
+bot.on("message", async message => {
+  if (message.author.bot) return;
+  if (message.channel.type === "dm") return;
 
-bot.on("message", async message =>{
-    
-
-    if(message.author.bot) return;
-    if(message.channel.type === "dm") return;
-  
   /*let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
 
     if(!prefixes[message.guild.id]){
@@ -161,7 +184,7 @@ bot.on("message", async message =>{
     }
     let prefix = prefixes[message.guild.id].prefixes;*/
 
-    /*let messageArray = message.content.split(" ");
+  /*let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
     let ops = {ownerID: ownerID, active: active};
@@ -171,10 +194,22 @@ bot.on("message", async message =>{
     if(message.content[0]===`${prefix}` && commandFile) 
     commandFile.run(bot,message,args,ops);*/
 
-    setTimeout(() =>{
-      cooldown.delete(message.author.id)
-    }, cdSeconds * 1000)
-
+  setTimeout(() => {
+    cooldown.delete(message.author.id);
+  }, cdSeconds * 1000);
 });
 
-bot.login(process.env.TOKEN);
+var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
+// client.on('debug', e => {
+//   console.log(chalk.bgBlue.green(e.replace(regToken, 'that was redacted')));
+// });
+
+bot.on("warn", e => {
+  console.log(chalk.bgYellow(e.replace(regToken, "that was redacted")));
+});
+
+bot.on("error", e => {
+  console.log(chalk.bgRed(e.replace(regToken, "that was redacted")));
+});
+
+bot.login(TOKEN);
