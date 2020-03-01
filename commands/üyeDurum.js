@@ -18,6 +18,7 @@ module.exports.conf = {
     enabled: true,
     guildOnly: false,
     aliases: ["üyedurum", "üyeler", "durumlar", "durum"],
+    category: "kullanıcı",
     permLevel: 0
 };
 

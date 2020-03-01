@@ -11,6 +11,7 @@ exports.run = async (client, message, args) => {
     };
   }
   let prefix = prefixes[message.guild.id].prefixes;
+  
 
   if (!message.member.hasPermission("MANAGE_GUILD"))
     return message.channel.send(`:fire: Yeterli yetki, bulunmamakta!`);
@@ -30,6 +31,7 @@ exports.conf = {
   enabled: false,
   guildOnly: false,
   aliases: ["capslock-engel"],
+  category: "admin",
   permLevel: 3
 };
 exports.help = {

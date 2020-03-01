@@ -69,7 +69,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["tempmute", "tempm", "tmute"],
-  ategory: "admin",
+  category: "admin",
   permLevel: 1
 };
 

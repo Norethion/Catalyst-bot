@@ -31,7 +31,7 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["vikipedi", "viki"],
-  ategory: "fun",
+  category: "fun",
   permLevel: 0
 };
 

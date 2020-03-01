@@ -34,13 +34,13 @@ module.exports.run = async (bot, message, args) => {
     );
     channel.send(embed).then(i => i.react("🐛"));
   } else {
-    message.channel.send(`**Doğru Kullanım:** ${prefix}bug-bildir <hata>`);
+    message.channel.send(`**Doğru Kullanım:** ${prefix}bug-bildir <hata> <a:vixen:675633806480244776>`);
   }
 };
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ["bugbildir","bugb","bbildir"],
   category: "kullanıcı",
   permLevel: 0
 };

@@ -2,9 +2,10 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
 
-let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
+
 
 exports.run = async (client, message, args) => {
+  let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
   if (!prefixes[message.guild.id]) {
     prefixes[message.guild.id] = {
       prefixes: botconfig.prefix

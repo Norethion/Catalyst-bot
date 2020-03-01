@@ -35,7 +35,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["havadurum", "hava"],
-  ategory: "fun",
+  category: "fun",
   permLevel: 0
 };
 

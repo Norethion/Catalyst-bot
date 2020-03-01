@@ -42,7 +42,7 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["clear"],
-  ategory: "admin",
+  category: "admin",
   permLevel: 1
 };
 

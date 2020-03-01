@@ -39,7 +39,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["öner"],
-  ategory: "kullanıcı",
+  category: "kullanıcı",
   permLevel: 0
 };
 

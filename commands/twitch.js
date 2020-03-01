@@ -65,7 +65,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["tw"],
-  ategory: "kullanıcı",
+  category: "kullanıcı",
   permLevel: 0
 };
 

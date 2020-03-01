@@ -36,6 +36,6 @@ exports.conf = {
 
 exports.help = {
   name: "unload",
-  description: "İstediğiniz bir komutu devre dışı bırakır.",
+  description: "[Admin Komutu]",
   usage: "unload <komut adı>"
 };

@@ -1,41 +1,73 @@
 const Discord = require("discord.js");
 
 exports.run = (bot, message, params) => {
+  let onl = message.guild.members.filter(m => m.presence.status === "online")
+    .size;
+  let off = message.guild.members.filter(m => m.presence.status === "offline")
+    .size;
+  let idle = message.guild.members.filter(m => m.presence.status === "idle")
+    .size;
+  let dnd = message.guild.members.filter(m => m.presence.status === "dnd").size;
+  let botlar = message.guild.members.filter(member => member.user.bot).size;
+  let üye = message.guild.memberCount;
   const embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setAuthor(message.guild.name, message.guild.userURL)
+    .setColor("#36393F")
+    .setAuthor(`${message.guild.name}`, message.guild.userURL)
     .setThumbnail(message.guild.iconURL)
-    .addField("İsim kısaltması:", message.guild.nameAcronym, true)
-    .addField("Kimliği:", message.guild.id, true)
-    .addField("Bölgesi:", message.guild.region, true)
-    .addField("Sahibi:", message.guild.owner, true)
-    .addField("Doğrulama seviyesi:", message.guild.verificationLevel, true)
     .addField(
-      "Üyeler:",
-      `${message.guild.members.filter(member => member.user.bot).size} bot | ${
-        message.guild.memberCount
-      } üye`,
+      `__**İsim kısaltması:**__`,
+      `**${message.guild.nameAcronym}**`,
       true
     )
-    .addField("Varsayılan rol:", message.guild.defaultRole, true)
+    .addField(`__**Kimliği:**__`, `||${message.guild.id}||`, true)
+    .addField(`__**Bölgesi:**__`, `» **${message.guild.region}**`, true)
+    .addField(`__**Sahibi:**__`, `» **${message.guild.owner}**`, true)
     .addField(
-      "Roller:",
-      message.guild.roles.map(role => role.name).join(", "),
+      `__**Doğrulama seviyesi:**__`,
+      `» **${message.guild.verificationLevel}**`,
       true
     )
     .addField(
-      "Kanallar:",
-      `${
+      `__**Üyeler:**__`,
+      `${üye} Üye 
+        <:onl:683414693825609733> Çevrimiçi:**${onl}**
+        <:off:683414796774932487> Rahatsız Etmeyin:**${dnd}**
+        <:wait:683414863942254684> Boşta:**${idle}**
+        <:unsee:683414914303262775> Görünmez:**${off}**
+        <:bots:683414999867326537> Botlar:**${botlar}**`,
+      true
+    )
+    .addField(
+      `__**Varsayılan rol:**__`,
+      `» **${message.guild.defaultRole}**`,
+      true
+    )
+    .addField(`__**Roller:**__`, `» **${message.guild.roles.size}**`, true)
+    .addField(
+      `__**Kanallar:**__`,
+      `» **${
         message.guild.channels.filter(chan => chan.type === "voice").size
-      } sesli / ${
+      } Sesli** \n » **${
         message.guild.channels.filter(chan => chan.type === "text").size
-      } metin`,
+      } Metin**`,
       true
     )
-    .addField("Kanal sayısı:", message.guild.channels.size, true)
-    .addField("AFK kanalı:", message.guild.afkChannel, true)
-    .addField("AFK zaman aşımı:", message.guild.afkTimeout, true)
-    .addField("Oluşturma tarihi:", message.guild.createdAt, true)
+    .addField(
+      `__**Kanal sayısı:**__`,
+      `» **${message.guild.channels.size}**`,
+      true
+    )
+    .addField(`__**AFK kanalı:**__`, `» **${message.guild.afkChannel}**`, true)
+    .addField(
+      `__**AFK zaman aşımı:**__`,
+      `» **${message.guild.afkTimeout}**`,
+      true
+    )
+    .addField(
+      `__**Oluşturma tarihi:**__`,
+      `» **${message.guild.createdAt}**`,
+      true
+    )
     .setFooter(`Catalyst Bot`, message.guild.iconURL)
     .setTimestamp();
   message.channel.send({ embed });
@@ -46,7 +78,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["sunucudurum"],
-  ategory: "kullanıcı",
+  category: "kullanıcı",
   permLevel: 0
 };
 

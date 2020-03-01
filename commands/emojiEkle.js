@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 exports.run = (client, message, args) => {
-  if (!message.member.hasPermission("MANAGE_EMOJIS"))
+  if (!message.member.hasPermissions("MANAGE_EMOJIS"))
     return message.channel.send(
       ":no_entry: Bu komutu kullanabilmek için `Emojileri yönet` yetkisine sahip olmalısınız"
     );
@@ -29,6 +29,6 @@ exports.conf = {
 };
 exports.help = {
   name: "emojiekle",
-  description: "Sunucuya emoji eklersiniz.",
+  description: "Sunucuya emoji eklersiniz",
   usage: "emojiekle <link> <isim>"
 };

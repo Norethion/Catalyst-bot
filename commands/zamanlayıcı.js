@@ -90,7 +90,7 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  ategory: "admin",
+  category: "admin",
   permLevel: 2
 };
 exports.help = {

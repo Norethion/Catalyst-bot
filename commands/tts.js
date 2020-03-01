@@ -34,7 +34,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["say", "tts"],
-  ategory: "fun",
+  category: "fun",
   permLevel: 0
 };
 

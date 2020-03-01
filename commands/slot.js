@@ -25,7 +25,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["slot", "slotçevir", "slotoyna"],
-  ategory: "fun",
+  category: "fun",
   permLevel: 0
 };
 

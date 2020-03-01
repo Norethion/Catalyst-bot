@@ -55,7 +55,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["spo", "spoti", "soti", "spotif", "spotifyy"],
-  ategory: "kullanıcı",
+  category: "kullanıcı",
   permLevel: 0
 };
 

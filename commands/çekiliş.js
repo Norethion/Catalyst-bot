@@ -157,7 +157,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["cekilis"],
-  ategory: "admin",
+  category: "admin",
   permLevel: 2
 };
 exports.help = {

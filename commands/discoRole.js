@@ -24,8 +24,8 @@ exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: ["disco-rol"],
-  kategori: "ayarlar",
-  permLevel: 0
+  category: "admin",
+  permLevel: 4
 };
 
 exports.help = {

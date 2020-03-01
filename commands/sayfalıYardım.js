@@ -7,14 +7,13 @@ exports.run = async (bot, message, args, params, perms) => {
 
   if (!prefixes[message.guild.id]) {
     prefixes[message.guild.id] = {
-      prefixes: botconfig.prefix
+      prefixes: ayarlar.prefix
     };
   }
   let prefix = prefixes[message.guild.id].prefixes;
 
   var sayfalar = [
-    `**Prefix:  ${prefix} **\n**Anlık Komut Sayımız:** *${bot.commands.size}* **Aktif Komut Sayısı:** *74*
-    Komutlar hakkında yardım almak için **${prefix}y <komut ismi>**\n` +
+    `**Prefix:**  **${prefix}**\n**Anlık Komut Sayımız:** *${bot.commands.size}* **Aktif Komut Sayısı:** *82*\nKomutlar hakkında yardım almak için **${prefix}y <komut ismi>**\n ` +
       "**Yetkili Komutlar**\n\n" +
       bot.commands
         .filter(
@@ -24,7 +23,7 @@ exports.run = async (bot, message, args, params, perms) => {
           cmd =>
             ` ${prefix}**` +
             cmd.help.name +
-            `** :: *` +
+            ` ::** *` +
             cmd.help.description +
             `*`
         )
@@ -38,7 +37,7 @@ exports.run = async (bot, message, args, params, perms) => {
           cmd =>
             ` ${prefix}**` +
             cmd.help.name +
-            `** :: *` +
+            ` ::** *` +
             cmd.help.description +
             `*`
         )
@@ -52,7 +51,7 @@ exports.run = async (bot, message, args, params, perms) => {
           cmd =>
             ` ${prefix}**` +
             cmd.help.name +
-            `** :: *` +
+            ` ::** *` +
             cmd.help.description +
             `*`
         )
@@ -64,7 +63,7 @@ exports.run = async (bot, message, args, params, perms) => {
           cmd =>
             ` ${prefix}**` +
             cmd.help.name +
-            `** :: *` +
+            ` ::** *` +
             cmd.help.description +
             `*`
         )
@@ -78,7 +77,7 @@ exports.run = async (bot, message, args, params, perms) => {
           cmd =>
             ` ${prefix}**` +
             cmd.help.name +
-            `** :: *` +
+            ` ::** *` +
             cmd.help.description +
             `*`
         )
@@ -87,7 +86,7 @@ exports.run = async (bot, message, args, params, perms) => {
   let sayfa = 1;
 
   const embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
+    .setColor("#cf1968")
     .setFooter(`Sayfa ${sayfa} - ${sayfalar.length}`)
     .setDescription(sayfalar[sayfa - 1]);
 

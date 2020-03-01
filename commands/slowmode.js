@@ -56,7 +56,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["slow-mode", "yavas-mod", "yavasmod", "yavaşmod"],
-  ategory: "admin",
+  category: "admin",
   permLevel: 3
 };
 

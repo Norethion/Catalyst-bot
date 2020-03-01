@@ -12,7 +12,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["christmas"],
-  ategory: "fun",
+  category: "fun",
   permLevel: 0
 };
 

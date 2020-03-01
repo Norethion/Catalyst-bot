@@ -222,7 +222,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["çeviri", "cevir", "ceviri", "translate"],
-  ategory: "fun",
+  category: "fun",
   permLevel: 0
 };
 
