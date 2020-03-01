@@ -9,18 +9,18 @@ module.exports = message => {
 
   if (!prefixes[message.guild.id]) {
     prefixes[message.guild.id] = {
-      prefixes: botconfig.prefix
+      prefixes: ayarlar.prefix
     };
   }
   let prefix = prefixes[message.guild.id].prefixes;
 
-  if (talkedRecently.has(message.author.id)) {
+  /*if (talkedRecently.has(message.author.id)) {
     return;
-  }
-  talkedRecently.add(message.author.id);
+  } else talkedRecently.add(message.author.id);
   setTimeout(() => {
+    message.delete();
     talkedRecently.delete(message.author.id);
-  }, 2500);
+  }, 3000);*/
 
   let bot = message.client;
   if (message.author.bot) return;
