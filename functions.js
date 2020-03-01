@@ -24,7 +24,7 @@ module.exports = {
   formatDate: function(date) {
     return new Intl.DateTimeFormat("tr-TR").format(date);
   },
-  
+
   promptMessage: async function(message, author, time, validReactions) {
     // We put in the time as seconds, with this it's being transfered to MS
     time *= 1000;

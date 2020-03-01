@@ -2,24 +2,9 @@ const token = require("./token.json");
 const ayarlar = require("./ayarlar.json");
 const Discord = require("discord.js");
 const fs = require("fs");
-const chalk = require("chalk");
 const moment = require("moment");
 const ownerID = "286158318450245632";
 const active = new Map();
-const TOKEN = process.env.TOKEN;
-const express = require("express");
-const app = express();
-const http = require("http");
-app.get("/", (request, response) => {
-  console.log(
-    ` az önce pinglenmedi. Sonra ponglanmadı... ya da başka bir şeyler olmadı.`
-  );
-  response.sendStatus(200);
-});
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
 const bot = new Discord.Client({ disableEveryone: true });
 bot.commands = new Discord.Collection();
 let cooldown = new Set();
@@ -51,21 +36,21 @@ fs.readdir("./commands/", (err, files) => {
 bot.on("guildCreate", guild => {
   let prefixes = JSON.parse(fs.readFileSync("./prefixes.json", "utf8"));
 
-  prefixes[guild.id] = {
+  prefixes[bot.guildID] = {
     prefixes: "."
   };
 
   fs.writeFile("./prefixes.json", JSON.stringify(prefixes), err => {
     if (err) console.log(err);
   });
-  const embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setTitle("Bir Sunucuya Katıldım;")
-    .setDescription(
-      `Bot, 》${guild.name}《 adlı sunucuya katıldı [${guild.memberCount} Üye]!`
-    )
-    .setFooter("Catalyst Bot", bot.user.avatarURL)
-    .setTimestamp();
+  let embed = new Discord.RichEmbed()
+    .setColor("GREEN")
+    .setTitle(" Bot Eklendi ")
+    .addField("Sunucu Adı:", guild.name)
+    .addField("Sunucu sahibi", guild.owner)
+    .addField("Sunucu Sahibi'nin ID'si", guild.ownerID)
+    .addField("Sunucunun Kurulu Olduğu Bölge:", guild.region)
+    .addField("Sunucudaki Kişi Sayısı:", guild.memberCount);
   bot.channels.get("591083691120394250").send(embed);
 
   const owner = guild.owner;
@@ -87,14 +72,14 @@ bot.on("guildCreate", guild => {
 });
 
 bot.on("guildDelete", guild => {
-  const embed = new Discord.RichEmbed()
-    .setColor("RANDOM")
-    .setTitle("Bir Sunucudan Ayrıldım;")
-    .setDescription(
-      `Bot, 》${guild.name}《 sunucudan ayrıldı [${guild.memberCount} Üye]!`
-    )
-    .setFooter("Catalyst Bot", bot.user.avatarURL)
-    .setTimestamp();
+  let embed = new Discord.RichEmbed()
+    .setColor("RED")
+    .setTitle("Bot Kicklendi")
+    .addField("Sunucu Adı:", guild.name)
+    .addField("Sunucu sahibi", guild.owner)
+    .addField("Sunucu Sahibi'nin ID'si", guild.ownerID)
+    .addField("Sunucunun Kurulu Olduğu Bölge:", guild.region)
+    .addField("Sunucudaki Kişi Sayısı:", guild.memberCount);
   bot.channels.get("591083691120394250").send(embed);
 });
 
@@ -199,17 +184,4 @@ bot.on("message", async message => {
   }, cdSeconds * 1000);
 });
 
-var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
-// client.on('debug', e => {
-//   console.log(chalk.bgBlue.green(e.replace(regToken, 'that was redacted')));
-// });
-
-bot.on("warn", e => {
-  console.log(chalk.bgYellow(e.replace(regToken, "that was redacted")));
-});
-
-bot.on("error", e => {
-  console.log(chalk.bgRed(e.replace(regToken, "that was redacted")));
-});
-
-bot.login(TOKEN);
+bot.login(process.env.TOKEN);
